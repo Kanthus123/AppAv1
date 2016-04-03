@@ -11,5 +11,7 @@
 
 <a href="novoCliente.jsp">Novo Cliente</a>
 <a href="novoFilme.jsp">Novo Filme</a>
+<a href="novoFilme.jsp">Novo Filme</a>
+<a href="novoFilme.jsp">Novo Filme</a>
 </body>
 </html>
