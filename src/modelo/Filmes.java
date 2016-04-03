@@ -10,6 +10,7 @@ public class Filmes {
 	private float preco;
 	private int ano;
 	private String genero;
+	private boolean alugado;
 	private Date dataCadastro;
 	
 
@@ -19,7 +20,7 @@ public class Filmes {
 		
 	}
 	
-	public Filmes(int _id, String _titulo, String _autor,float _preco, int _ano, String _genero){
+	public Filmes(int _id, String _titulo, String _autor,float _preco, int _ano, String _genero, boolean _alugado){
 		
 		this.id = _id;
 		this.titulo = _titulo;
@@ -27,6 +28,7 @@ public class Filmes {
 		this.preco = _preco;
 		this.ano = _ano;
 		this.genero = _genero;
+		this.alugado = _alugado;
 		
 	}
 	
@@ -84,6 +86,15 @@ public class Filmes {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
+
+	public boolean isAlugado() {
+		return alugado;
+	}
+
+	public void setAlugado(boolean alugado) {
+		this.alugado = alugado;
+	}
+
 	
 	
 	

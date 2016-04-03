@@ -128,7 +128,7 @@ public class FilmesDAO implements InterfaceFilmesDAO {
 				 		String comando = "update filmes set Alugado = true, DataAlugado = ?, DataDevolucao = ?, where Id = ?";
 				 		
 				 		PreparedStatement ps = this.conexao.prepareStatement(comando);
-				 		ps.setAlugado(1, _filmes.getAlugado());
+				 		ps.isAlugado(1, _filmes.getAlugado());
 				 		
 				 		
 			 
