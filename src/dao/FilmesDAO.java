@@ -67,8 +67,9 @@ public class FilmesDAO implements InterfaceFilmesDAO {
 				float preco = rs.getFloat(4);
 				int ano = rs.getInt(5);
 				String genero = rs.getString(6);
+				boolean alugado = rs.getBoolean(7);
 				
-				listaFilmes.add(new Filmes(id, titulo, autor, preco, ano, genero));
+				listaFilmes.add(new Filmes(id, titulo, autor, preco, ano, genero, alugado));
 			}
 		}
 		
@@ -128,12 +129,18 @@ public class FilmesDAO implements InterfaceFilmesDAO {
 				 		String comando = "update filmes set Alugado = true, DataAlugado = ?, DataDevolucao = ?, where Id = ?";
 				 		
 				 		PreparedStatement ps = this.conexao.prepareStatement(comando);
-				 		ps.isAlugado(1, _filmes.getAlugado());
+				 		ps.setBoolean(1, _filmes.isAlugado());
+				 		ps.setDate(2, new Date(_filmes.getDataCadastro().getTime()));
+				 		ps.setDate(3, Date(_filmes.getDataCadastro().getTime()));
 				 		
+				 		ps.execute();
 				 		
+				 		ps.close();
 			 
 		 }
-			 
+			catch(Exception e){
+				
+			}
 			 
 	}
 	
