@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pagina Principal</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>Pagina Principal</h1>
 
-<a href="novoCliente.jsp">Novo Cliente</a>
-<a href="novoFilme.jsp">Novo Filme</a>
-<a href="listarCliente.jsp">Listar Clientes</a>
-<a href="listarFilme.jsp">Listar Filmes</a>
 </body>
 </html>
