@@ -93,9 +93,7 @@ public class Filmes {
 
 	public void setAlugado(boolean alugado) {
 		this.alugado = alugado;
-	}
-
-	
+	}	
 	
 	
 }
