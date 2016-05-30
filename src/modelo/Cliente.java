@@ -2,15 +2,18 @@ package modelo;
 
 import java.util.Date;
 
+
 public class Cliente {
 
 	
-	private String name;
 	private int cpf;
+	private String name;
 	private String endereco;
 	private int idade;
 	private String tel;
 	private Date dataCadastro;
+
+	
 	
 	public Cliente(){
 		
@@ -24,6 +27,7 @@ public class Cliente {
 			this.endereco = _endereco;
 			this.idade = _idade;
 			this.tel = _tel;
+		
 		}
 
 	public String getName() {
@@ -74,9 +78,6 @@ public class Cliente {
 		this.tel = tel;
 	}
 	
-		
 	
-	
-	}
-
+}
 
