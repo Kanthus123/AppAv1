@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	<h:body>
+	
+			
+			<h:form>			
+				<h:outputLabel for="nome" value="Digite seu nome:"/>
+				<h:inputText id="nome" value="#{clienteBean.cliente.name}"/>
+			<br />
+				<h:outputLabel for="tel" value="Digite seu Telefone:"/>
+				<h:inputText id="tel" value="#{clienteBean.cliente.tel}"/>
+			<br />
+				<h:outputLabel for="id" value="Digite o ID:"/>
+				<h:inputText id="id" value="#{clienteBean.cliente.id}"/>
+			<br />
+				<h:commandButton value="Update" action="#{clienteBean.Atulizar}" />
+			<br />
+			</h:form>
+		
+	</h:body>
+
+
+</html>

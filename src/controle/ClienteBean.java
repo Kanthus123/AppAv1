@@ -16,7 +16,7 @@ import modelo.Cliente;
 public class ClienteBean {
 	
 	Cliente cliente;
-	ListDataModel<Cliente> clientes;
+	ListDataModel<Cliente> listaClienteParaPF;
 	List<Cliente> listaClientes;
 	
 	public List<Cliente> getListaClientes() {
@@ -83,12 +83,12 @@ public class ClienteBean {
 					 
 		}
 
-		public ListDataModel<Cliente> getClientes() {
-			return clientes;
+		public ListDataModel<Cliente> getlistaClienteParaPF() {
+			return listaClienteParaPF;
 		}
 
 		public void setPessoas(ListDataModel<Cliente> clientes) {
-			this.clientes = clientes;
+			this.listaClienteParaPF = clientes;
 		}	
 
 		@PostConstruct
@@ -106,7 +106,7 @@ public class ClienteBean {
 				
 				fabrica.fecharConexao();
 					
-				this.clientes = new ListDataModel <> (this.listaClientes);
+				this.listaClienteParaPF = new ListDataModel <Cliente> (this.listaClientes);
 				}
 					catch(Exception ex){
 						ex.printStackTrace();

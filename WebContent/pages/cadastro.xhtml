@@ -2,46 +2,72 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
 	
 	<ui:define name="menu">
 		<ui:include src="/includes/menu.xhtml" />
 	</ui:define>
-
-	<ui:define name="conteudo">
-		
-		<p:dataTable id="tblClientes" var="cliente" value="#{clienteBean.cliente}"
-			emptyMessage="Nenhum registro encontrado.">
-		
-			<f:facet name="header">Listagem de Pessoas</f:facet>
-			
-	    	<p:column headerText="Id">
-	        	<h:outputText value="#{cliente.cpf}" />
-	    	</p:column>
-	 
-	   		<p:column headerText="Nome">
-	        	<h:outputText value="#{cliente.name}" />
-	    	</p:column>
-			
-			<p:column headerText="Endereço">
-	        	<h:outputText value="#{cliente.endereco}" />
-	    	</p:column>
-	    		 
-	    	<p:column headerText="Idade">
-	        	<h:outputText value="#{cliente.idade}" />
-	    	</p:column>
-	    	
-	    	<p:column headerText="Tel">
-	        	<h:outputText value="#{cliente.tel}" />
-	    	</p:column>
- 
-		</p:dataTable>
 	
+	<ui:define name="conteudo">
+		<h:form id="f">
+			<p:dataTable id="tblCliente" 
+						emptyMessage="Nenhum registro encontrado." 
+						var="cliente" value="#{clienteBean.listaClienteParaPF}" 
+						>
+				    
+				    <f:facet name="header">Listagem de Clientes</f:facet>
+				    
+				    <p:column headerText="Id">
+				        <h:outputText value="#{cliente.id}" />
+				    </p:column>
+				 
+				    <p:column headerText="Nome">
+				        <h:outputText value="#{cliente.nome}" />
+				    </p:column>
+				 
+				    <p:column headerText="Tel">
+				        <h:outputText value="#{cliente.tel}" />
+				    </p:column>
+				    
+				    <f:facet name="footer">
+				    	<p:commandButton value="Novo" actionListener="#{clienteBean.PrepararNovo}" 
+				    	oncomplete="PF('dlgNovoCliente').show();" 
+				    	update=":fCadastrar:pgCadastrar"/>
+				    </f:facet>
+	
+				</p:dataTable>
+		</h:form>
+			
+		<p:dialog header="Novo Cliente" widgetVar="dlgNovoCliente" height="150"
+				modal="true" appendTo="@(body)"
+			  	draggable="false" resizable="false" closable="false" >
+	    
+		    <h:form id="fCadastrar">
+		    	<h:panelGrid id="pgCadastrar" columns="2">
+		    		<p:outputLabel value="Digite o ID:"/>
+					<p:inputText id="id" value="#{clienteBean.cliente.cpf}"/>
+					
+					<p:outputLabel value="Digite seu nome:"/>
+					<p:inputText id="nome" value="#{clienteBean.cliente.name}"/>
+					
+					<p:outputLabel value="Digite seu TEL"/>
+					<p:inputText id="tel" value="#{clienteBean.cliente.tel}"/>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:commandButton value="Cadastrar" oncomplete="PF('dlgNovoCliente').hide();" 
+							actionListener="#{clienteBean.CadastrarCliente}" 
+							update=":f:tblCliente :msgGlobal" />
+					
+					<p:commandButton value="Cancelar" onclick="PF('dlgNovoCliente').hide();" />
+				</h:panelGrid>
+		    </h:form>
+		</p:dialog>
 	</ui:define>
 
 </ui:composition>
