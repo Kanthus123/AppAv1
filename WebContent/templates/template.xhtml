@@ -7,35 +7,38 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
+	
 	<h:head>
-		<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" /> 
-		<title>...::Sistema Exemplo de Aula::...</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>..::Sistema da Locadora::..</title>
 		<h:outputStylesheet library="css" name="css.css" />
 	</h:head>
-<h:body>
-<p:layout fullPage="true">
- 
-    <p:layoutUnit position="north" size="100" header="Cabecalho" resizable="true" closable="true" collapsible="true">
-        <ui:insert name="cabecalho" />
-    </p:layoutUnit>
- 
-    <p:layoutUnit position="south" size="100" header="Rodape" resizable="true" closable="true" collapsible="true">
-        <ui:insert name="rodape" />
-    </p:layoutUnit>
- 
-    <p:layoutUnit position="west" size="200" header="Menu" resizable="true" closable="true" collapsible="true">
-        <ui:insert name="menu" />
-    </p:layoutUnit>
- 
-    <p:layoutUnit position="east" size="200" header="Painel" resizable="true" closable="true" collapsible="true" effect="drop">
-        <ui:insert name="painel" />
-    </p:layoutUnit>
- 
- 	<p:layoutUnit position="center">
- 		<ui:insert name="conteudo" />
- 	</p:layoutUnit>
-
-</p:layout>
-</h:body>
+	<h:body>
+	
+		<p:growl id="msgGlobal" life="6000" showDetail="true" sticky="false" /> 
+	
+		<p:layout fullPage="true">
+		 
+		    <p:layoutUnit position="north" size="100" header="Cabecalho" resizable="true" closable="true" collapsible="true">
+		        <ui:insert name="cabecalho" />
+		    </p:layoutUnit>
+		 
+		    <p:layoutUnit position="south" size="100" header="Rodape" resizable="true" closable="true" collapsible="true">
+		        <ui:insert name="rodape" />
+		    </p:layoutUnit>
+		 
+		    <p:layoutUnit position="west" size="200" header="Menu" resizable="true" closable="true" collapsible="true">
+		        <ui:insert name="menu" />
+		    </p:layoutUnit>
+		 
+		    <p:layoutUnit position="east" size="200" header="Painel" resizable="true" closable="true" collapsible="true" effect="drop">
+		        <ui:insert name="painel" />
+		    </p:layoutUnit>
+		 
+		    <p:layoutUnit position="center">
+		        <ui:insert name="conteudo" />
+		    </p:layoutUnit>
+		 
+		</p:layout>
+	</h:body>
 </html>

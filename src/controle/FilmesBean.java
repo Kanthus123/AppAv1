@@ -8,135 +8,141 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.ListDataModel;
 
-import dao.FilmesDAO;
 import dao.fabricaConexao;
+import dao.FilmesDAO;
 import modelo.Filmes;
+import Util.JSFUtil;
 
 @ManagedBean
 public class FilmesBean {
 	
-	Filmes filme;
-	ListDataModel<Filmes> filmes;
-	List<Filmes> listaFilmes;
+	Filmes filmes;
+	ListDataModel<Filmes> listaFilmesParaPF;
+	private List<Filmes> listaFilmes;
 	
 	public List<Filmes> getListaFilmes() {
 		return listaFilmes;
 	}
 
-	public void setListaPessoas(List<Filmes> listaFilmes) {
+	public void setListaFilmes(List<Filmes> listaFilmes) {
 		this.listaFilmes = listaFilmes;
+	}
+	
+	public ListDataModel<Filmes> getListaFilmesParaPF() {
+		return listaFilmesParaPF;
+	}
+
+	public void setListaClienteParaPF(ListDataModel<Filmes> filmes) {
+		this.listaFilmesParaPF = filmes;
 	}
 
 	public Filmes getFilmes() {
-		return filme;
+		return filmes;
 	}
 
-	public void setCliente(Filmes filme) {
-		this.filme = filme;
-	}
-
-	public FilmesBean(){
-		this.filme = new Filmes();
+	public void setFilmes(Filmes filmes) {
+		this.filmes = filmes;
 	}
 	
-	public void CadastrarCliente(){
-		try{
+	public void PrepararNovo() {
+		this.filmes = new Filmes();
+	}
+	
+	public void CadastrarFilmes()
+	{
+		try {
+			this.filmes.setDataCadastro(new Date());
+
+			fabricaConexao fabrica = new fabricaConexao();
+			Connection conexao = fabrica.fazerConexao();
+
+			FilmesDAO dao = new FilmesDAO(conexao);
+			dao.Inserir(this.filmes);
+
+			this.listaFilmes = dao.listarTodos();
+
+			this.listaFilmesParaPF = new ListDataModel<Filmes>(listaFilmes);
+
+			fabrica.fecharConexao();
+
+			JSFUtil.adicionarMensagemSucesso("Filme salvo com sucesso!");
 			
-			this.filme.setDataCadastro(new Date());
-			
-		fabricaConexao fabrica = new fabricaConexao();
-		Connection conexao = fabrica.fazerConexao();
-		
-		FilmesDAO dao = new FilmesDAO(conexao);
-		dao.Inserir(this.filme);
-		
-		fabrica.fecharConexao();
-		}
-		catch(Exception ex){
-			
-			ex.printStackTrace();
-			
+		} catch (Exception e) {
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+			e.printStackTrace();
 		}
 	}
-		
-		public void Atulizar(){
-			
-			try {
-				
-				this.filme.setDataCadastro(new Date());
-					
-				fabricaConexao fabrica = new fabricaConexao();
-				Connection conexao = fabrica.fazerConexao();
-				
-				FilmesDAO dao = new FilmesDAO(conexao);
-				dao.Update(this.filme);
-				
-				fabrica.fecharConexao();
-				
-				}
-			
-				catch(Exception ex){
-					
-					ex.printStackTrace();
-					
-				}
-					 
-		}
 
-		public ListDataModel<Filmes> getFilmes1() {
-			return filmes;
-		}
+	public void PreparaUpdate()	{
+		this.filmes = listaFilmesParaPF.getRowData();
+	}
+	
+	public void UpdateFilmes() {
+		try {
+			
+			fabricaConexao fabrica = new fabricaConexao();
+			Connection conexao = fabrica.fazerConexao();
 
-		public void setPessoas(ListDataModel<Filmes> filmes) {
-			this.filmes = filmes;
-		}	
+			FilmesDAO dao = new FilmesDAO(conexao);
+			dao.Update(this.filmes);
 
-		@PostConstruct
-		public void PreencherList(){
+			this.listaFilmes = dao.listarTodos();
+
+			this.listaFilmesParaPF = new ListDataModel<Filmes>(listaFilmes);
+
+			fabrica.fecharConexao();
+
+			JSFUtil.adicionarMensagemSucesso("Filme atualizado com sucesso!");
 			
-			if (listaFilmes == null){
-				
-				try{
-					
-				fabricaConexao fabrica = new fabricaConexao();
-				Connection conexao = fabrica.fazerConexao();
-				
-				FilmesDAO dao = new FilmesDAO(conexao);
-				this.listaFilmes = dao.listarTodos();
-				
-				fabrica.fecharConexao();
-					
-				this.filmes = new ListDataModel <> (this.listaFilmes);
-				}
-					catch(Exception ex){
-						ex.printStackTrace();
-						
-					}
-				
-			}
-			
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
-		
-			public void Deletar(){
+	}
+	
+	public void PreparaDeletar() {
+		this.filmes = listaFilmesParaPF.getRowData();
+	}
+	
+	public void DeletarFilmes() {
+		try {
 			
-			try {
-					
-				fabricaConexao fabrica = new fabricaConexao();
-				Connection conexao = fabrica.fazerConexao();
-				
-				FilmesDAO dao = new FilmesDAO(conexao);
-				dao.Deletar(this.filme);
-				
-				fabrica.fecharConexao();
-				
-				}
+			fabricaConexao fabrica = new fabricaConexao();
+			Connection conexao = fabrica.fazerConexao();
+
+			FilmesDAO dao = new FilmesDAO(conexao);
+			dao.Deletar(this.filmes);
+
+			this.listaFilmes = dao.listarTodos();
+
+			this.listaFilmesParaPF = new ListDataModel<Filmes>(listaFilmes);
+
+			fabrica.fecharConexao();
+
+			JSFUtil.adicionarMensagemSucesso("Filme deletado com sucesso!");
 			
-				catch(Exception ex){
-					
-					ex.printStackTrace();
-					
-				}
-					 
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
-		
+	}
+	
+	@PostConstruct
+	public void PreecherLista() 
+	{
+		try {
+			fabricaConexao fabrica = new fabricaConexao();
+			Connection conexao = fabrica.fazerConexao();
+			
+			FilmesDAO dao = new FilmesDAO(conexao);
+			this.listaFilmes = dao.listarTodos();
+			
+			fabrica.fecharConexao();
+			
+			this.listaFilmesParaPF = new ListDataModel<Filmes>(this.listaFilmes);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }

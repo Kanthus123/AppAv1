@@ -4,6 +4,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import modelo.Filmes;
 import modelo.Alugar;
 
@@ -17,9 +19,9 @@ Connection conexao;
 
 }
 
-	public void Alugar(Filmes _filmes , Alugar _alugado){
+	public void Alugar(Filmes _filmes , Alugar _alugado) throws SQLException{
 		 
-		 try {
+		
 			 
 			 		java.util.Date data = new java.util.Date();
 			 		String comando1 = "update filmes set Alugado = true, where Id = ?";
@@ -36,10 +38,6 @@ Connection conexao;
 			 		
 			 		ps1.close();
 		 
-	 }
-		catch(Exception e){
-			
-		}
 	
 	}
 }

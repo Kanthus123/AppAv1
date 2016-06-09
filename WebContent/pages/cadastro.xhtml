@@ -18,21 +18,43 @@
 			<p:dataTable id="tblCliente" 
 						emptyMessage="Nenhum registro encontrado." 
 						var="cliente" value="#{clienteBean.listaClienteParaPF}" 
-						>
+						paginator="true" rows="10" paginatorPosition="bottom">
 				    
-				    <f:facet name="header">Listagem de Clientes</f:facet>
+				    <f:facet name="header">Listagem de Cliente</f:facet>
 				    
-				    <p:column headerText="Id">
-				        <h:outputText value="#{cliente.id}" />
+				    <p:column headerText="Cpf">
+				        <h:outputText value="#{cliente.cpf}" />
 				    </p:column>
 				 
 				    <p:column headerText="Nome">
-				        <h:outputText value="#{cliente.nome}" />
+				        <h:outputText value="#{cliente.name}" />
+					</p:column>
+				 	
+				 	<p:column headerText="Endereço">
+				        <h:outputText value="#{cliente.endereco}" />
 				    </p:column>
-				 
+				 	
+				 	<p:column headerText="Idade">
+				        <h:outputText value="#{cliente.idade}" />
+				    </p:column>
+				 	
 				    <p:column headerText="Tel">
 				        <h:outputText value="#{cliente.tel}" />
 				    </p:column>
+				    
+				    <p:column headerText="Data Cadastro">
+				        <h:outputText value="#{cliente.dtcadastro}" />
+				    </p:column>
+				    
+				    <p:column headerText="Opções">
+					    <p:commandButton icon="ui-icon-pencil" actionListener="#{clienteBean.PreparaUpdate}" 
+				    	oncomplete="PF('dlgUpdateCliente').show();" 
+				    	update=":fUpdate:pgUpdate"/>
+				    	
+				    	<p:commandButton icon="ui-icon-trash" actionListener="#{clienteBean.PreparaDeletar}" 
+				    	oncomplete="PF('dlgDeletarCliente').show();" 
+				    	update=":fDeletar:pgDeletar"/>
+			    	</p:column>
 				    
 				    <f:facet name="footer">
 				    	<p:commandButton value="Novo" actionListener="#{clienteBean.PrepararNovo}" 
@@ -43,19 +65,25 @@
 				</p:dataTable>
 		</h:form>
 			
-		<p:dialog header="Novo Cliente" widgetVar="dlgNovoCliente" height="150"
+		<p:dialog header="Nova Cliente" widgetVar="dlgNovoCliente" height="150"
 				modal="true" appendTo="@(body)"
 			  	draggable="false" resizable="false" closable="false" >
 	    
 		    <h:form id="fCadastrar">
 		    	<h:panelGrid id="pgCadastrar" columns="2">
-		    		<p:outputLabel value="Digite o ID:"/>
-					<p:inputText id="id" value="#{clienteBean.cliente.cpf}"/>
+		    		<p:outputLabel value="Digite o CPF:"/>
+					<p:inputText id="cpf" value="#{clienteBean.cliente.cpf}"/>
 					
 					<p:outputLabel value="Digite seu nome:"/>
 					<p:inputText id="nome" value="#{clienteBean.cliente.name}"/>
 					
-					<p:outputLabel value="Digite seu TEL"/>
+					<p:outputLabel value="Digite o seu endereco:"/>
+					<p:inputText id="endereco" value="#{clienteBean.cliente.endereco}"/>
+					
+					<p:outputLabel value="Digite o idade:"/>
+					<p:inputText id="idade" value="#{clienteBean.cliente.idade}"/>
+					
+					<p:outputLabel value="Digite seu tel"/>
 					<p:inputText id="tel" value="#{clienteBean.cliente.tel}"/>
 				</h:panelGrid>
 				
@@ -68,6 +96,61 @@
 				</h:panelGrid>
 		    </h:form>
 		</p:dialog>
+		
+		<p:dialog header="Update Cliente" widgetVar="dlgUpdateCliente" height="150"
+					modal="true" appendTo="@(body)"
+				  	draggable="false" resizable="false" closable="false" >
+		    
+		   <h:form id="fUpdate">
+		    	<h:panelGrid id="pgUpdate" columns="2">
+		    		<p:outputLabel value="Digite seu CPF:"/>
+					<p:inputText id="cpf" value="#{clienteBean.cliente.cpf}"/>
+					
+					<p:outputLabel value="Digite seu nome:"/>
+					<p:inputText id="nome" value="#{clienteBean.cliente.name}"/>
+					
+					<p:outputLabel value="Digite o seu endereco:"/>
+					<p:inputText id="endereco" value="#{clienteBean.cliente.endereco}"/>
+					
+					<p:outputLabel value="Digite o idade:"/>
+					<p:inputText id="idade" value="#{clienteBean.cliente.idade}"/>
+					
+					<p:outputLabel value="Digite seu tel"/>
+					<p:inputText id="tel" value="#{clienteBean.cliente.tel}"/>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:commandButton value="Update" oncomplete="PF('dlgUpdateCliente').hide();" 
+							actionListener="#{clienteBean.UpdateCliente}" 
+							update=":f:tblCliente :msgGlobal" />
+					
+					<p:commandButton value="Cancelar" onclick="PF('dlgUpdateCliente').hide();" />
+				</h:panelGrid>
+		    </h:form>
+		</p:dialog>
+		
+		<p:dialog header="Deletar Cliente" widgetVar="dlgDeletarCliente" height="150"
+					modal="true" appendTo="@(body)"
+				  	draggable="false" resizable="false" closable="false" >
+		    
+		    <h:form id="fDeletar">
+		    	<h:panelGrid id="pgDeletar" columns="2">
+		    	
+		    		<p:outputLabel value="Digite o CPF:"/>
+					<h:outputText id="cpf" value="#{clienteBean.cliente.cpf}"/>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:commandButton value="Deletar" oncomplete="PF('dlgDeletarCliente').hide();" 
+							actionListener="#{clienteBean.DeletarCliente}" 
+							update=":f:tblCliente :msgGlobal" />
+					
+					<p:commandButton value="Cancelar" onclick="PF('dlgDeletarCliente').hide();" />
+				</h:panelGrid>
+		    </h:form>
+		</p:dialog>
+		 
 	</ui:define>
 
 </ui:composition>

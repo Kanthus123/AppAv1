@@ -7,10 +7,9 @@ public class JSFUtil {
 
 	public static void adicionarMensagemSucesso(String _msg)
 	{
-		//severity - tipo da mensagem (info, warning, error, fatal)
+		
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, _msg, _msg);
 		
-		//Pega a área de memoria temporaria
 		FacesContext contexto = FacesContext.getCurrentInstance();
 		
 		contexto.addMessage(null, msg);
@@ -18,10 +17,10 @@ public class JSFUtil {
 	
 	public static void adicionarMensagemErro(String _msg)
 	{
-		//severity - tipo da mensagem (info, warning, error, fatal)
+		
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, _msg, _msg);
 		
-		//Pega a área de memoria temporaria
+		
 		FacesContext contexto = FacesContext.getCurrentInstance();
 		
 		contexto.addMessage(null, msg);

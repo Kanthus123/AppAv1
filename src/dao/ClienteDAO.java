@@ -1,15 +1,16 @@
 package dao;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import modelo.Cliente;
 
-public class ClienteDAO implements InterfaceClienteDAO{
+public class ClienteDAO implements InterfaceClienteDAO {
 
 	Connection conexao;
 	
@@ -20,38 +21,28 @@ public class ClienteDAO implements InterfaceClienteDAO{
 	}
 	
 	@Override
-	public void Inserir(Cliente _cliente) {	
+	public void Inserir(Cliente _cliente) throws SQLException {	
 		
-		try{
-			
-			String comando = "insert into cliente(cpf, name, endereco, tel, \"dtcadastro\")" + "values (?, ?, ?, ?, ?)";
+			String comando = "insert into cliente(cpf, name, endereco, idade, tel, \"dtcadastro\")" + "values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = this.conexao.prepareStatement(comando);
 			ps.setInt(1, _cliente.getCpf());
 			ps.setString(2, _cliente.getName());
 			ps.setString(3, _cliente.getEndereco());
-			ps.setString(4, _cliente.getTel());
-			ps.setDate(5, new Date(_cliente.getDataCadastro().getTime()));
+			ps.setInt(4, _cliente.getIdade());
+			ps.setString(5, _cliente.getTel());
+			ps.setDate(6, new Date(_cliente.getDataCadastro().getTime()));
 			
 			ps.execute();
-		}
-			catch(Exception e){
-				
-				
-				
-			}
-		
 		
 	}
 
 	@Override
-	public List<Cliente> listarTodos() {
+	public List<Cliente> listarTodos() throws SQLException {
 		
 		ResultSet rs = null;
 		List<Cliente> listaClientes = new ArrayList<Cliente>();
 	
-		try {
-			
-			String comando = "select * from cliente";
+			String comando = "select * from cliente order by cpf";
 					
 			PreparedStatement ps = this.conexao.prepareStatement(comando);
 			
@@ -64,22 +55,18 @@ public class ClienteDAO implements InterfaceClienteDAO{
 				String endereco = rs.getString(3);
 				int idade = rs.getInt(4);
 				String tel = rs.getString(5);
+				Date data = rs.getDate(6);
 				
-				listaClientes.add(new Cliente(cpf, name, endereco, idade, tel));
-			}
-		}
+				listaClientes.add(new Cliente(cpf, name, endereco, idade, tel, data));
 		
-			catch (Exception e){
-				
-				
 			}
 		
 		return listaClientes;
 	}
 	
-	public void Deletar(Cliente _cliente){
-		try {	
-			String comando = "delete from cliente where Cpf = ? ";
+	public void Deletar(Cliente _cliente) throws SQLException {
+			
+			String comando = "delete from cliente where cpf = ?";
 		
 			PreparedStatement ps= this.conexao.prepareStatement(comando);
 		
@@ -89,34 +76,22 @@ public class ClienteDAO implements InterfaceClienteDAO{
 			
 			ps.close();
 			
-		
-		} catch (Exception e) {
-			
-			
-		}
 	}
 		
-	public void Update(Cliente _cliente){
+	public void Update(Cliente _cliente) throws SQLException {
 		
-		try {
-			String comando = "update cliente set Name = ?, Endereco = ?, Tel = ?, Date = ?  where Id =?";
+			String comando = "update cliente set name = ?, endereco = ?, tel = ?, idade = ?, where cpf = ?";
 			
 			PreparedStatement ps = this.conexao.prepareStatement(comando);
 			ps.setString(1, _cliente.getName());
 			ps.setString(2, _cliente.getEndereco());
-			ps.setString(3, _cliente.getTel());
-			ps.setDate(4, new Date(_cliente.getDataCadastro().getTime()));
+			ps.setInt(3, _cliente.getIdade());
+			ps.setString(4, _cliente.getTel());
+			
 			
 			ps.execute();
 			
 			ps.close();
-			
-		}
-		 catch (Exception e){
-			 
-			 
-		 }
-		
 		 
 	}
 		

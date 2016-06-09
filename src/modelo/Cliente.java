@@ -20,14 +20,14 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(int _cpf, String _name,String _endereco, int _idade, String _tel){
+	public Cliente(int _cpf, String _name,String _endereco, int _idade, String _tel, Date _dataCadastro){
 		
 			this.cpf = _cpf;
 			this.name = _name;
 			this.endereco = _endereco;
 			this.idade = _idade;
 			this.tel = _tel;
-		
+			this.dataCadastro = _dataCadastro;
 		}
 
 	public String getName() {

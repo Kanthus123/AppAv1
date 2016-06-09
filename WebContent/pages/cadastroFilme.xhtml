@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml" />
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		<h:form id="f">
+			<p:dataTable id="tblFilmes" 
+						emptyMessage="Nenhum registro encontrado." 
+						var="filmes" value="#{filmesBean.listaFilmesParaPF}" 
+						paginator="true" rows="10" paginatorPosition="bottom">
+				    
+				    <f:facet name="header">Listagem de Filmes</f:facet>
+				    
+				    <p:column headerText="Id">
+				        <h:outputText value="#{filmes.id}" />
+				    </p:column>
+				 
+				    <p:column headerText="Titulo">
+				        <h:outputText value="#{filmes.titulo}" />
+					</p:column>
+				 	
+				 	<p:column headerText="Autor">
+				        <h:outputText value="#{filmes.autor}" />
+				    </p:column>
+				 	
+				 	<p:column headerText="Preco">
+				        <h:outputText value="#{filmes.preco}" />
+				    </p:column>
+				 	
+				    <p:column headerText="Ano">
+				        <h:outputText value="#{filmes.ano}" />
+				    </p:column>
+				    
+				    <p:column headerText="Genero">
+				        <h:outputText value="#{filmes.genero}" />
+				    </p:column>
+				    
+				    <p:column headerText="Data Cadastro">
+				        <h:outputText value="#{filmes.dtcadastro}" />
+				    </p:column>
+				    
+				    <p:column headerText="Alugado">
+				        <h:outputText value="#{filmes.alugado}" />
+				    </p:column>
+				    
+				    <p:column headerText="Opções">
+					    <p:commandButton icon="ui-icon-pencil" actionListener="#{filmesBean.PreparaUpdate}" 
+				    	oncomplete="PF('dlgUpdateFilmes').show();" 
+				    	update=":fUpdate:pgUpdate"/>
+				    	
+				    	<p:commandButton icon="ui-icon-trash" actionListener="#{filmesBean.PreparaDeletar}" 
+				    	oncomplete="PF('dlgDeletarFilmes').show();" 
+				    	update=":fDeletar:pgDeletar"/>
+			    		</p:column>
+				    
+				    <f:facet name="footer">
+				    	<p:commandButton value="Novo" actionListener="#{filmesBean.PrepararNovo}" 
+				    	oncomplete="PF('dlgNovoFilmes').show();" 
+				    	update=":fCadastrar:pgCadastrar"/>
+				    </f:facet>
+	
+				</p:dataTable>
+		</h:form>
+			
+		<p:dialog header="Nova Filmes" widgetVar="dlgNovoFilmes" height="150"
+				modal="true" appendTo="@(body)"
+			  	draggable="false" resizable="false" closable="false" >
+	    
+		    <h:form id="fCadastrar">
+		    	<h:panelGrid id="pgCadastrar" columns="2">
+		    	
+		    		<p:outputLabel value="Digite o Id:"/>
+					<p:inputText id="id" value="#{filmesBean.filmes.id}"/>
+					
+					<p:outputLabel value="Digite o Titulo:"/>
+					<p:inputText id="titulo" value="#{filmesBean.filmes.titulo}"/>
+					
+					<p:outputLabel value="Digite o Autor:"/>
+					<p:inputText id="autor" value="#{filmesBean.filmes.autor}"/>
+					
+					<p:outputLabel value="Digite o Preço:"/>
+					<p:inputText id="preco" value="#{filmesBean.filmes.preco}"/>
+					
+					<p:outputLabel value="Digite o Ano"/>
+					<p:inputText id="ano" value="#{filmesBean.filmes.ano}"/>
+					
+					<p:outputLabel value="Digite o Genero"/>
+					<p:inputText id="genero" value="#{filmesBean.filmes.genero}"/>
+					
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:commandButton value="Cadastrar" oncomplete="PF('dlgNovoFilmes').hide();" 
+							actionListener="#{filmesBean.CadastrarFilmes}" 
+							update=":f:tblFilmes :msgGlobal" />
+					
+					<p:commandButton value="Cancelar" onclick="PF('dlgNovoCliente').hide();" />
+				</h:panelGrid>
+		    </h:form>
+		</p:dialog>
+		
+		<p:dialog header="Update Filmes" widgetVar="dlgUpdateFilmes" height="150"
+					modal="true" appendTo="@(body)"
+				  	draggable="false" resizable="false" closable="false" >
+		    
+		   <h:form id="fUpdate">
+		    	<h:panelGrid id="pgUpdate" columns="2">
+		    		<p:outputLabel value="Digite o Id:"/>
+					<p:inputText id="id" value="#{filmesBean.filmes.id}"/>
+					
+					<p:outputLabel value="Digite o Titulo:"/>
+					<p:inputText id="titulo" value="#{filmesBean.filmes.titulo}"/>
+					
+					<p:outputLabel value="Digite o Autor:"/>
+					<p:inputText id="autor" value="#{filmesBean.filmes.autor}"/>
+					
+					<p:outputLabel value="Digite o Preço:"/>
+					<p:inputText id="preco" value="#{filmesBean.filmes.preco}"/>
+					
+					<p:outputLabel value="Digite o Ano"/>
+					<p:inputText id="ano" value="#{filmesBean.filmes.ano}"/>
+					
+					<p:outputLabel value="Digite o Genero"/>
+					<p:inputText id="genero" value="#{filmesBean.filmes.genero}"/>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:commandButton value="Update" oncomplete="PF('dlgUpdatFilmes').hide();" 
+							actionListener="#{filmesBean.UpdateFilmes}" 
+							update=":f:tblFilmes :msgGlobal" />
+					
+					<p:commandButton value="Cancelar" onclick="PF('dlgUpdateFilmes').hide();" />
+				</h:panelGrid>
+		    </h:form>
+		</p:dialog>
+		
+		<p:dialog header="Deletar Filmes" widgetVar="dlgDeletarFilmes" height="150"
+					modal="true" appendTo="@(body)"
+				  	draggable="false" resizable="false" closable="false" >
+		    
+		    <h:form id="fDeletar">
+		    	<h:panelGrid id="pgDeletar" columns="2">
+		    	
+		    		<p:outputLabel value="Digite o Id:"/>
+					<h:outputText id="cpf" value="#{filmesBean.filmes.id}"/>
+					
+			</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:commandButton value="Deletar" oncomplete="PF('dlgDeletarFilmes').hide();" 
+							actionListener="#{filmesBean.DeletarFilmes}" 
+							update=":f:tblFilmes :msgGlobal" />
+					
+					<p:commandButton value="Cancelar" onclick="PF('dlgDeletarFilmes').hide();" />
+				</h:panelGrid>
+		    </h:form>
+		</p:dialog>
+		 
+	</ui:define>
+
+</ui:composition>

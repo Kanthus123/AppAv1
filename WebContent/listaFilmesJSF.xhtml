@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:body>
+		<h:dataTable var="filmes" value="#{filmesBean.listaFilmesParaPF}" border="1">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{filmes.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Titulo</f:facet>
+				<h:outputText value="#{filmes.titulo}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autor</f:facet>
+				<h:outputText value="#{filmes.autor}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Preço</f:facet>
+				<h:outputText value="#{filmes.preco}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ano</f:facet>
+				<h:outputText value="#{filmes.ano}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Genero</f:facet>
+				<h:outputText value="#{filmes.genero}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Data Cadastro</f:facet>
+				<h:outputText value="#{cliente.dataCadastro}">
+		          <f:convertDateTime pattern="dd/MM/yyyy"/>
+		        </h:outputText>
+		    </h:column>
+		    <h:column>
+				<f:facet name="header">Esta Alugado?</f:facet>
+				<h:outputText value="#{filmes.alugado}"/>
+			</h:column>
+			
+		</h:dataTable>
+	</h:body>
+</html>
