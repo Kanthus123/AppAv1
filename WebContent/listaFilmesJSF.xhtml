@@ -7,7 +7,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<h:body>
-		<h:dataTable var="filmes" value="#{filmesBean.listaFilmesParaPF}" border="1">
+		<h:dataTable var="filmes" value="#{filmesBean.listaFilmes}" border="1">
 			<h:column>
 				<f:facet name="header">ID</f:facet>
 				<h:outputText value="#{filmes.id}" />

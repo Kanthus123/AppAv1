@@ -5,12 +5,12 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 	<managed-bean>
-		<managed-bean-name>clienteBean1</managed-bean-name>
+		<managed-bean-name>clienteBean</managed-bean-name>
 		<managed-bean-class>controle.ClienteBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>filmesBean1</managed-bean-name>
+		<managed-bean-name>filmesBean</managed-bean-name>
 		<managed-bean-class>controle.FilmesBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>

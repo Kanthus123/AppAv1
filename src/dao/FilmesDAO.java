@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import modelo.Filmes;
+import modelo.Alugar;
 
 public class FilmesDAO implements InterfaceFilmesDAO {
 

@@ -10,6 +10,8 @@ import javax.faces.model.ListDataModel;
 
 import dao.fabricaConexao;
 import dao.FilmesDAO;
+import dao.AlugadoDAO;
+import modelo.Alugar;
 import modelo.Filmes;
 import Util.JSFUtil;
 
@@ -17,6 +19,7 @@ import Util.JSFUtil;
 public class FilmesBean {
 	
 	Filmes filmes;
+	Alugar alugar;
 	ListDataModel<Filmes> listaFilmesParaPF;
 	private List<Filmes> listaFilmes;
 	
@@ -42,6 +45,14 @@ public class FilmesBean {
 
 	public void setFilmes(Filmes filmes) {
 		this.filmes = filmes;
+	}
+	
+	public Alugar getAlugar() {
+		return alugar;
+	}
+
+	public void setAlugar(Alugar alugar) {
+		this.alugar = alugar;
 	}
 	
 	public void PrepararNovo() {
@@ -127,6 +138,37 @@ public class FilmesBean {
 		}
 	}
 	
+	public void PreparaAlugar(){
+		this.filmes = listaFilmesParaPF.getRowData();
+	}
+	
+	public void AlugarFilmes(){
+		try{
+			
+			fabricaConexao fabrica = new fabricaConexao();
+			Connection conexao = fabrica.fazerConexao();
+			
+			FilmesDAO dao2 = new FilmesDAO(conexao);
+			AlugadoDAO dao = new AlugadoDAO(conexao);
+			dao.Alugar(this.filmes, this.alugar);;
+			
+			this.listaFilmes = dao2.listarTodos();
+			
+			this.listaFilmesParaPF = new ListDataModel<Filmes>(listaFilmes);
+			
+			fabrica.fecharConexao();
+
+			JSFUtil.adicionarMensagemSucesso("Filme alugado com sucesso!");
+			
+		}
+			catch (Exception e){
+				
+				e.printStackTrace();
+				JSFUtil.adicionarMensagemErro(e.getMessage());
+			}
+		
+	}
+	
 	@PostConstruct
 	public void PreecherLista() 
 	{
@@ -141,8 +183,9 @@ public class FilmesBean {
 			
 			this.listaFilmesParaPF = new ListDataModel<Filmes>(this.listaFilmes);
 		}
-		catch (Exception ex) {
-			ex.printStackTrace();
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+	
 }
