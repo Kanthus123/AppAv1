@@ -12,12 +12,8 @@ public class Filmes {
 	private String genero;
 	private Date dataCadastro;
 	private boolean alugado;
-	
-	
 
 	public Filmes(){
-		
-		
 		
 	}
 	

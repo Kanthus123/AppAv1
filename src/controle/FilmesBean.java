@@ -10,7 +10,6 @@ import javax.faces.model.ListDataModel;
 
 import dao.fabricaConexao;
 import dao.FilmesDAO;
-import dao.AlugadoDAO;
 import modelo.Alugar;
 import modelo.Filmes;
 import Util.JSFUtil;
@@ -35,7 +34,7 @@ public class FilmesBean {
 		return listaFilmesParaPF;
 	}
 
-	public void setListaClienteParaPF(ListDataModel<Filmes> filmes) {
+	public void setListaFilmesParaPF(ListDataModel<Filmes> filmes) {
 		this.listaFilmesParaPF = filmes;
 	}
 
@@ -142,17 +141,16 @@ public class FilmesBean {
 		this.filmes = listaFilmesParaPF.getRowData();
 	}
 	
-	public void AlugarFilmes(){
+	public void AlugarFilmes (){
 		try{
 			
 			fabricaConexao fabrica = new fabricaConexao();
 			Connection conexao = fabrica.fazerConexao();
 			
-			FilmesDAO dao2 = new FilmesDAO(conexao);
-			AlugadoDAO dao = new AlugadoDAO(conexao);
+			FilmesDAO dao = new FilmesDAO(conexao);
 			dao.Alugar(this.filmes, this.alugar);;
 			
-			this.listaFilmes = dao2.listarTodos();
+			this.listaFilmes = dao.listarTodos();
 			
 			this.listaFilmesParaPF = new ListDataModel<Filmes>(listaFilmes);
 			
@@ -169,23 +167,53 @@ public class FilmesBean {
 		
 	}
 	
-	@PostConstruct
-	public void PreecherLista() 
-	{
-		try {
+	public void PreparaDevolver(){
+		this.filmes = listaFilmesParaPF.getRowData();
+	}
+	
+	public void DevolverFilmes(){
+		try{
+			
 			fabricaConexao fabrica = new fabricaConexao();
 			Connection conexao = fabrica.fazerConexao();
 			
 			FilmesDAO dao = new FilmesDAO(conexao);
+			dao.Devolver(this.filmes, this.alugar);;
+			
 			this.listaFilmes = dao.listarTodos();
 			
-			fabrica.fecharConexao();
+			this.listaFilmesParaPF = new ListDataModel<Filmes>(listaFilmes);
 			
-			this.listaFilmesParaPF = new ListDataModel<Filmes>(this.listaFilmes);
+			fabrica.fecharConexao();
+
+			JSFUtil.adicionarMensagemSucesso("Filme Devolvido com sucesso!");
+			
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+			catch (Exception e){
+				
+				e.printStackTrace();
+				JSFUtil.adicionarMensagemErro(e.getMessage());
+			}
+		
 	}
+	
+			@PostConstruct
+			public void PreecherLista() 
+			{
+				try {
+					fabricaConexao fabrica = new fabricaConexao();
+					Connection conexao = fabrica.fazerConexao();
+					
+					FilmesDAO dao = new FilmesDAO(conexao);
+					this.listaFilmes = dao.listarTodos();
+					
+					fabrica.fecharConexao();
+					
+					this.listaFilmesParaPF = new ListDataModel<Filmes>(this.listaFilmes);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 	
 }

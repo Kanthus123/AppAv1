@@ -7,12 +7,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import modelo.Filmes;
 import modelo.Alugar;
 
 public class FilmesDAO implements InterfaceFilmesDAO {
-
+	
 	Connection conexao;
 	
 	public FilmesDAO(Connection _conexao){
@@ -24,7 +23,7 @@ public class FilmesDAO implements InterfaceFilmesDAO {
 	@Override
 	public void Inserir(Filmes _filmes) throws SQLException {	
 		
-			String comando = "insert into cliente(id, titulo, autor, preco, ano, genero, \"dtcadastro\")" + "values (?, ?, ?, ?, ?, ?, ?)";
+			String comando = "insert into filmes(id, titulo, autor, preco, ano, genero, \"dtcadastro\")" + "values (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = this.conexao.prepareStatement(comando);
 			ps.setInt(1, _filmes.getId());
 			ps.setString(2, _filmes.getTitulo());
@@ -69,7 +68,7 @@ public class FilmesDAO implements InterfaceFilmesDAO {
 	
 	public void Deletar(Filmes _filmes) throws SQLException{
 		
-			String comando = "delete from filmes where Id = ? ";
+			String comando = "delete from filmes where id = ? ";
 		
 			PreparedStatement ps= this.conexao.prepareStatement(comando);
 		
@@ -77,7 +76,7 @@ public class FilmesDAO implements InterfaceFilmesDAO {
 			
 			ps.execute();
 			
-			ps.close();
+	
 	
 	}
 		
@@ -92,10 +91,46 @@ public class FilmesDAO implements InterfaceFilmesDAO {
 			ps.setFloat(3, _filmes.getPreco());
 			ps.setInt(4, _filmes.getAno());
 			ps.setString(5, _filmes.getGenero());
+			ps.setInt(6, _filmes.getId());
 			
 			ps.execute();
 			
-			ps.close();
+	}
+	
+		public void Alugar(Filmes _filmes , Alugar _alugado) throws SQLException{
+			 
+			
+			 
+	 		java.util.Date data = new java.util.Date();
+	 		String comando1 = "update filmes set alugado = true, where id = ?";
+	 		String comando2 = "update alugar set dataAlugado = ? , DataDevolucao = ?, where id = ?";
+	 		
+	 		PreparedStatement ps = this.conexao.prepareStatement(comando1);
+	 		ps.setBoolean(1, _filmes.isAlugado());
+	 		
+	 		PreparedStatement ps1 = this.conexao.prepareStatement(comando2);
+	 		ps1.setDate(1, new Date(_alugado.getDataAlugado().getTime()));
+	 		ps1.setDate(2, new Date((data.getDay() + 7 )));
+	 		
+	 		ps.execute();
+	 		ps1.execute();
+	 		
+	 		ps1.close();
+	 		ps.close();
+	
+	}
+
+			public void Devolver(Filmes _filmes , Alugar _alugado) throws SQLException{
+				
+		 		String comando1 = "update filmes set alugado = false, where id = ?";
+		 		
+		 		PreparedStatement ps = this.conexao.prepareStatement(comando1);
+		 		ps.setBoolean(1, _filmes.isAlugado());
+
+		 		ps.execute();
+		 		
+		 		ps.close();
 			
 	}
+		
 }

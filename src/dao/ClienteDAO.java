@@ -74,8 +74,6 @@ public class ClienteDAO implements InterfaceClienteDAO {
 			
 			ps.execute();
 			
-			ps.close();
-			
 	}
 		
 	public void Update(Cliente _cliente) throws SQLException {
@@ -88,10 +86,7 @@ public class ClienteDAO implements InterfaceClienteDAO {
 			ps.setInt(3, _cliente.getIdade());
 			ps.setString(4, _cliente.getTel());
 			
-			
 			ps.execute();
-			
-			ps.close();
 		 
 	}
 		
