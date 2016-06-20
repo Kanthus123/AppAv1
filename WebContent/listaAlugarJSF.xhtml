@@ -6,15 +6,26 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<ui:composition template="">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
-	</ui:define>
-	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
-</ui:composition>
+	<h:body>
+		<h:dataTable var="alugar" value="#{alugarBean.listaAlugar}" border="1">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{alugar.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Data Alugado</f:facet>
+				<h:outputText value="#{alugar.dataAlugado}">
+		          <f:convertDateTime pattern="dd/MM/yyyy"/>
+		        </h:outputText>
+		    </h:column>
+			
+			<h:column>
+				<f:facet name="header">Data Devolucao</f:facet>
+				<h:outputText value="#{alugar.dataDevolucao}">
+		          <f:convertDateTime pattern="dd/MM/yyyy"/>
+		        </h:outputText>
+		    </h:column>
+			
+		</h:dataTable>
+	</h:body>
 </html>

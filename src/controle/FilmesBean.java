@@ -46,14 +46,6 @@ public class FilmesBean {
 		this.filmes = filmes;
 	}
 	
-	public Alugar getAlugar() {
-		return alugar;
-	}
-
-	public void setAlugar(Alugar alugar) {
-		this.alugar = alugar;
-	}
-	
 	public void PrepararNovo() {
 		this.filmes = new Filmes();
 	}
@@ -137,35 +129,7 @@ public class FilmesBean {
 		}
 	}
 	
-	public void PreparaAlugar(){
-		this.filmes = listaFilmesParaPF.getRowData();
-	}
 	
-	public void AlugarFilmes (){
-		try{
-			
-			fabricaConexao fabrica = new fabricaConexao();
-			Connection conexao = fabrica.fazerConexao();
-			
-			FilmesDAO dao = new FilmesDAO(conexao);
-			dao.Alugar(this.filmes, this.alugar);;
-			
-			this.listaFilmes = dao.listarTodos();
-			
-			this.listaFilmesParaPF = new ListDataModel<Filmes>(listaFilmes);
-			
-			fabrica.fecharConexao();
-
-			JSFUtil.adicionarMensagemSucesso("Filme alugado com sucesso!");
-			
-		}
-			catch (Exception e){
-				
-				e.printStackTrace();
-				JSFUtil.adicionarMensagemErro(e.getMessage());
-			}
-		
-	}
 	
 	public void PreparaDevolver(){
 		this.filmes = listaFilmesParaPF.getRowData();
@@ -178,7 +142,7 @@ public class FilmesBean {
 			Connection conexao = fabrica.fazerConexao();
 			
 			FilmesDAO dao = new FilmesDAO(conexao);
-			dao.Devolver(this.filmes, this.alugar);;
+			dao.Devolver(this.filmes);
 			
 			this.listaFilmes = dao.listarTodos();
 			

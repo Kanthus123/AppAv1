@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml" />
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		<h:form id="f">
+			<p:dataTable id="tblAlugar" 
+						emptyMessage="Nenhum registro encontrado." 
+						var="alugar" value="#{alugarBean.listaAlugarParaPF}" 
+						paginator="true" rows="10" paginatorPosition="bottom">
+				    
+				    <f:facet name="header">Aluguel de Filme</f:facet>
+				    
+				    <p:column headerText="Id">
+				        <h:outputText value="#{alugar.id}" />
+				    </p:column>
+				 
+				    <p:column headerText="Data Alugado">
+				        <h:outputText value="#{alugar.dataAlugado}" />
+				    </p:column>
+				    
+				    <p:column headerText="Data Devoluçao">
+				        <h:outputText value="#{alugar.dataDevolucao}" />
+				    </p:column>
+				    
+				    <p:column headerText="Opções">
+				    
+					    <p:commandButton icon="ui-icon-flag" actionListener="#{alugarBean.PreparaAlugar}" 
+				    	oncomplete="PF('dlgAlugarFilmes').show();" 
+				    	update=":fAlugar:pgAlugar"/>
+				   
+			    		</p:column>
+			    				    			    						    		
+				    <f:facet name="footer">
+				    	<p:commandButton value="Alugar" actionListener="#{alugarBean.PreparaAlugar}" 
+				    	oncomplete="PF('dlgAlugarFilmes').show();" 
+				    	update=":fAlugar:pgAlugar"/>
+				    	
+				    </f:facet>
+				    				
+				</p:dataTable>
+		</h:form>
+			
+		<p:dialog header="Alugar Filme" widgetVar="dlgAlugarFilmes" height="150"
+				modal="true" appendTo="@(body)"
+			  	draggable="false" resizable="false" closable="false" >
+	    
+		    <h:form id="fAlugar">
+		    	<h:panelGrid id="pgAlugar" columns="2">
+		    	
+		    		<p:outputLabel value="Digite o Id:"/>
+					<p:inputText id="id" value="#{alugarBean.alugar.id}"/>
+					
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:commandButton value="Alugar" oncomplete="PF('dlgAlugarFilmes').hide();" 
+							actionListener="#{alugarBean.AlugarFilmes}" 
+							update=":f:tblAlugar :msgGlobal" />
+					
+					<p:commandButton value="Cancelar" onclick="PF('dlgAlugar').hide();" />
+				</h:panelGrid>
+		    </h:form>
+		</p:dialog>
+	
+	</ui:define>
+
+</ui:composition>

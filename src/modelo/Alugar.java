@@ -12,6 +12,16 @@ public class Alugar {
 				
 	}
 	
+	
+	public Alugar(Filmes _id, Date _dataAlugado, Date _dataDevolucao) {
+		
+		this.id = _id;
+		this.dataAlugado = _dataAlugado;
+		this.dataDevolucao = _dataDevolucao;
+	}
+
+
+
 	public Alugar(Filmes _id){
 		
 		this.id = _id;

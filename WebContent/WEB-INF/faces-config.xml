@@ -14,5 +14,20 @@
 		<managed-bean-class>controle.FilmesBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>alugarBean</managed-bean-name>
+		<managed-bean-class>controle.AlugarBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userLoginView1</managed-bean-name>
+		<managed-bean-class>controle.UserLoginView</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>chartView</managed-bean-name>
+		<managed-bean-class>controle.ChartView</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>
