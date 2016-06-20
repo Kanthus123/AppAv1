@@ -10,6 +10,7 @@ import javax.faces.model.ListDataModel;
 
 import dao.fabricaConexao;
 import dao.AlugadoDAO;
+import dao.FilmesDAO;
 import modelo.Alugar;
 import modelo.Filmes;
 
@@ -47,26 +48,7 @@ public class AlugarBean {
 	public void setFilmes(Filmes filmes) {
 		this.filmes = filmes;
 	}
-	
-	@PostConstruct
-	public void PreecherLista() 
-	{
-		try {
-			fabricaConexao fabrica = new fabricaConexao();
-			Connection conexao = fabrica.fazerConexao();
-			
-			AlugadoDAO dao = new AlugadoDAO(conexao);
-			this.listaAlugar = dao.listarTodos();
-			
-			fabrica.fecharConexao();
-			
-			this.listaAlugarParaPF = new ListDataModel<Alugar>(this.listaAlugar);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 	
 	public void PreparaAlugar(){
 		this.alugar = listaAlugarParaPF.getRowData();
@@ -82,8 +64,6 @@ public class AlugarBean {
 			
 			AlugadoDAO dao = new AlugadoDAO(conexao);
 			dao.Alugar(this.filmes, this.alugar);;
-			
-			this.listaAlugar = dao.listarTodos();
 			
 			this.listaAlugarParaPF = new ListDataModel<Alugar>(listaAlugar);
 			

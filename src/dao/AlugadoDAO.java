@@ -20,30 +20,8 @@ public class AlugadoDAO implements InterfaceAlugarDAO {
 		
 	}
 	
-	@Override
-	public List<Alugar> listarTodos() throws SQLException{
-		
-		ResultSet rs = null;
-		List<Alugar> listaAlugar = new ArrayList<Alugar>();
 	
-			String comando = "select * from alugar order by id";
-					
-			PreparedStatement ps = this.conexao.prepareStatement(comando);
-			
-			rs = ps.executeQuery();
-			
-			while (rs.next()){
-				
-				int id = rs.getInt(1);
-				Date data = rs.getDate(2);
-				Date data2 = rs.getDate(3);
-				
-				listaAlugar.add(new Alugar(id, data, data2));
-			}
-		
-		return listaAlugar;
-	}
-	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void Alugar(Filmes _filmes, Alugar _alugado) throws SQLException{
 		 

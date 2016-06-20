@@ -20,14 +20,6 @@ public class Alugar {
 		this.dataDevolucao = _dataDevolucao;
 	}
 
-
-
-	public Alugar(Filmes _id){
-		
-		this.id = _id;
-		
-	}
-
 	public Filmes getId() {
 		return id;
 	}
